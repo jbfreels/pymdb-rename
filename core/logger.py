@@ -1,5 +1,5 @@
 import logging
-from config import config
+from core.config import config
 
 from os import path
 
