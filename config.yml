@@ -1,6 +1,7 @@
 action: copy
+move_format: "{n} ({y})"
 logger:
-  path: "pymdb-rename.log"
-  filelevel: "logging.DEBUG"        # DEBUG, INFO, WARNING, ERROR
-  stdoutlevel: "logging.INFO"
+  path: pymdb-rename.log
+  filelevel: logging.DEBUG        # DEBUG, INFO, WARNING, ERROR
+  stdoutlevel: logging.INFO
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
