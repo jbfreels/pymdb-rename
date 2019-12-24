@@ -1,6 +1,11 @@
 out_path: "/mnt/lilnas/movies/"
 action: copy
 move_format: "{n} ({y})"
+movie_exts:
+  - ".avi"
+  - ".mp4"
+  - ".m4v"
+  - ".mkv"
 logger:
   path: pymdb-rename.log
   filelevel: logging.DEBUG        # DEBUG, INFO, WARNING, ERROR

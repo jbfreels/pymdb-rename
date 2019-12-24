@@ -14,6 +14,7 @@ For convenience a *requirements.txt* has been added to ease import
   * *move* - move the file to *out_path*
   * *test* - don't do anything, just show what will happen
 * *movie_format* - represents how the output filname will be formatted, see *string format* below
+* *movie_exts* - valid filename extensions for movies
 * *logger*
   * *path* - output path for the logfile
   * *filelevel* - level for the log file

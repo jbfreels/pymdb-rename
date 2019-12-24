@@ -1,4 +1,16 @@
 import yaml
+import json
 
-with open ("config.yml", 'r') as yml:
-  config = yaml.load (yml, Loader=yaml.Loader)
+class Config:
+
+  def __init__ (self, path="config.yml"):
+
+    with open (path, 'r') as yml:
+      self.yaml = yaml.load (yml, Loader=yaml.Loader)
+      self.__dict__.update (self.yaml)
+    
+  def __str__ (self):
+
+    return json.dumps(self.yaml)
+
+config = Config ()
