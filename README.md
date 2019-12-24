@@ -1,4 +1,5 @@
 # pymdb-rename
+This project is in current initial development, not currently in a working full-functioning state.
 
 ## requirements
 * imdbpy
