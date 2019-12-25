@@ -1,6 +1,6 @@
 out_path: "/mnt/lilnas/movies/"
 action: copy
-move_format: "{n} ({y})"
+movie_format: "{n} ({y})"
 movie_exts:
   - ".avi"
   - ".mp4"

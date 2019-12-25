@@ -2,6 +2,7 @@ import yaml
 import json
 
 class Config:
+  #movie_format = None
 
   def __init__ (self, path="config.yml"):
 
