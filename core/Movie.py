@@ -36,7 +36,10 @@ class Movie:
     def _fix_name(self):
         rep_chars = ['<', '>', '*', '?', '|',
                      '\\', '/', '"', ':', '.',
-                     '[', ']']
+                     '[', ']', '_', "1080p", "1080",
+                     "720p", "720", "  "]
 
         for c in rep_chars:
             self.name = self.name.replace(c, " ")
+
+        

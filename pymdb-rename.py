@@ -28,8 +28,9 @@ if __name__ == "__main__":
         exit(1)
 
     if movie.name != None:
-        print("Looks like: " +
-              config.movie_format.format(n=movie.name, y=movie.year))
+        print("{} -> ".format(movie.filename), end = " ")
+        print(config.movie_format.format(n=movie.name, y=movie.year), end = "")
+        print(movie.ext)
     else:
         print("couldn't find a match :(")
         exit(1)
