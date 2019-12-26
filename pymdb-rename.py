@@ -27,4 +27,11 @@ if __name__ == "__main__":
         logger.error("looks like input isn't a media file")
         exit(1)
 
-    print("Looks like: " + config.movie_format.format(n=movie.name, y=movie.year))
+    if movie.name != None:
+        print("Looks like: " +
+              config.movie_format.format(n=movie.name, y=movie.year))
+    else:
+        print("couldn't find a match :(")
+        exit(1)
+
+    exit(0)

@@ -28,10 +28,13 @@ class Imdb:
                     y = r['year']
                 except:
                     y = "0000"
-            self.matches.append("{} {}".format(n, y))
+                self.matches.append("{} {}".format(n, y))
         self.best_match()
 
     def best_match(self):
+
+        if len(self.matches) == 0:
+            return None
 
         dl = Damerau()
         ops = []
