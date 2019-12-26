@@ -10,7 +10,7 @@ def exit_handler ():
 atexit.register (exit_handler)
 
 formatter = logging.Formatter (config.logger['format']) #config['logger']['format'])
-logger = logging.getLogger ()
+logger = logging.getLogger ('pymdb-rename')
 logger.setLevel(logging.NOTSET)
 
 logfile = logging.FileHandler (config.logger['path'])

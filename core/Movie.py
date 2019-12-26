@@ -21,8 +21,8 @@ class Movie:
         logger.debug(self.__dict__)
 
         i = imdb.Imdb(self.name)
-        logger.info(i.movie)
-        logger.info(i.year)
+        self.name = i.movie
+        self.year = i.year
 
     def _get_year_from_name(self):
 
@@ -35,7 +35,8 @@ class Movie:
 
     def _fix_name(self):
         rep_chars = ['<', '>', '*', '?', '|',
-                     '\\', '/', '"', ':', '.']
+                     '\\', '/', '"', ':', '.',
+                     '[', ']']
 
         for c in rep_chars:
             self.name = self.name.replace(c, " ")

@@ -26,3 +26,5 @@ if __name__ == "__main__":
     if not movie.ext in config.movie_exts:
         logger.error("looks like input isn't a media file")
         exit(1)
+
+    print("Looks like: " + config.movie_format.format(n=movie.name, y=movie.year))
