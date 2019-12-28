@@ -4,7 +4,7 @@ from os import path
 from core.Config import config
 from core.logger import logger
 from core.Movie import Movie
-
+from core.Imdb import Imdb
 
 def usage():
     print("pymdb-rename.py <INPUT_FILE>")
@@ -27,10 +27,11 @@ if __name__ == "__main__":
         logger.error("looks like input isn't a media file")
         exit(1)
 
+    imdb = Imdb(movie.name)
+    movie.title, movie.year = imdb.fetch_movie()
+    
     if movie.name != None:
-        print("{} -> ".format(movie.filename), end = " ")
-        print(config.movie_format.format(n=movie.name, y=movie.year), end = "")
-        print(movie.ext)
+        print("{} -> {}".format(movie.filename, movie.get_output_filename()))
     else:
         print("couldn't find a match :(")
         exit(1)
