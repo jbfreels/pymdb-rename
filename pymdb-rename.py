@@ -1,16 +1,27 @@
+import atexit
 import sys
 from os import path
 
+from core import FileUtils, get_logger
 from core.Config import config
-from core.logger import logger
-from core.Movie import Movie
 from core.Imdb import Imdb
+from core.Movie import Movie
+
 
 def usage():
     print("pymdb-rename.py <INPUT_FILE>")
 
 
+def exit_handler():
+    logger.info('quitting')
+
+
 if __name__ == "__main__":
+    atexit.register(exit_handler)
+    logger = get_logger('pymdb-rename')
+
+    logger.info("starting")
+    logger.debug(config)
 
     if len(sys.argv) < 2:
         usage()
@@ -18,7 +29,7 @@ if __name__ == "__main__":
 
     infile = sys.argv[1]
     if not path.exists(infile):
-        logger.error("input file '{}' does not exist".format(infile))
+        logger.error("input file does not exist")
         exit(1)
 
     movie = Movie(infile)
@@ -29,9 +40,10 @@ if __name__ == "__main__":
 
     imdb = Imdb(movie.name)
     movie.title, movie.year = imdb.fetch_movie()
-    
-    if movie.name != None:
+
+    if movie.title != None:
         print("{} -> {}".format(movie.filename, movie.get_output_filename()))
+        movie.do_output()
     else:
         print("couldn't find a match :(")
         exit(1)

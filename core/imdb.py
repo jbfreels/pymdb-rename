@@ -1,10 +1,12 @@
 from imdb import IMDb
 from similarity.damerau import Damerau
 
-from core.logger import logger
+import logging
 
 
 class Imdb:
+    logger = logging.getLogger(__name__)
+
     def __init__(self, name):
         self.IMDb = IMDb()
         self.matches = []
@@ -13,7 +15,7 @@ class Imdb:
     def fetch_movie(self):
         self.__find_movies()
         return self.__best_match()
- 
+
     def __find_movies(self):
         res = self.IMDb.search_movie(self.name)
         self.matches = []

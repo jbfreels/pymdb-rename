@@ -1,6 +1,6 @@
-out_path: "/mnt/lilnas/movies/"
-action: copy
-movie_format: "{n} ({y})"
+out_path: "tests/data/output/"
+action: move                      # copy, move
+movie_format: "{n} ({y})"         # The Matrix (1999)
 movie_exts:
   - ".avi"
   - ".mp4"
@@ -8,6 +8,10 @@ movie_exts:
   - ".mkv"
 logger:
   path: pymdb-rename.log
-  filelevel: logging.DEBUG        # DEBUG, INFO, WARNING, ERROR
-  stdoutlevel: logging.INFO
-  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: 
+    level: logging.DEBUG
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  stdout:
+    level: logging.ERROR
+    format: "%(levelname)s: %(name)s - %(message)s"
+  format: 
