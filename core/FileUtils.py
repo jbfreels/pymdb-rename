@@ -3,10 +3,23 @@ import os
 import shutil
 import sys
 
-from core.Config import Config
+from core.Config import config
 from core.ProgressBar import ProgressBar
+from glob import glob
 
 pbar = ProgressBar("")
+
+
+def findMovieInDir(search):
+    file = None
+    files = []
+    for ext in config.movie_exts:
+        files.extend(glob(os.path.join(search, "*" + ext)))
+
+    if len(files) == 1:
+        return files[0]
+
+    return file
 
 
 def copyFile(src, dst, follow_sym=True):

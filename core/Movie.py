@@ -12,12 +12,20 @@ from core import get_logger
 class Movie:
     logger = get_logger(__name__)
 
-    def __init__(self, infile):
+    def __init__(self, inpath):
         self.title = None
         self.year = None
-        self.path = infile
-        self.dirname = path.dirname(infile)
-        self.filename = path.basename(infile)
+
+        if path.isdir(inpath):
+            inpath = FileUtils.findMovieInDir(inpath)
+
+            if not inpath:
+                raise FileNotFoundError(
+                    "could not determine input from folder")
+
+        self.path = inpath
+        self.dirname = path.dirname(inpath)
+        self.filename = path.basename(inpath)
         self.name, self.ext = path.splitext(self.filename)
         self.name = self.__fix_name(self.name)
         self.__parse_fixed_name()
