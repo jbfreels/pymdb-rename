@@ -24,16 +24,20 @@ class Movie:
 
         self.logger.debug(self.__dict__)
 
-    def get_formatted_name(self):
-        return config.movie_format.format(n=self.title, y=self.year)
+    def get_formatted_name(self, withext=False):
+        f = config.movie_format.format(n=self.title, y=self.year)
+        if withext:
+            return f + self.ext
+        return f
 
-    def get_output_filename(self):
-        return path.join(config.out_path, self.get_formatted_name() + self.ext)
-
-    def do_output(self):
+    def do_output(self, outpath=None):
+        if not outpath:
+            output = path.join(config.out_path, self.get_formatted_name(True))
+        else:
+            output = path.join(outpath, self.get_formatted_name(True))
         try:
             self.logger.info("copying data")
-            FileUtils.copyFile(self.path, self.get_output_filename())
+            FileUtils.copyFile(self.path, output)
         except FileExistsError as e:
             self.logger.error(e)
         except FileNotFoundError as e:
@@ -42,6 +46,8 @@ class Movie:
             if config.action.upper() == "MOVE":
                 self.logger.info("removing input file")
                 os.remove(self.path)
+            return output
+        return None
 
     def __parse_fixed_name(self):
         m = re.match(r".*([1-3][0-9]{3})", self.name)

@@ -7,6 +7,9 @@ from core.Config import config
 from core.Imdb import Imdb
 from core.Movie import Movie
 
+logger = get_logger('pymdb-rename')
+logger.info("starting")
+logger.debug(config)
 
 def usage():
     print("pymdb-rename.py <INPUT_FILE>")
@@ -16,12 +19,9 @@ def exit_handler():
     logger.info('quitting')
 
 
-if __name__ == "__main__":
-    atexit.register(exit_handler)
-    logger = get_logger('pymdb-rename')
+atexit.register(exit_handler)
 
-    logger.info("starting")
-    logger.debug(config)
+if __name__ == "__main__":
 
     if len(sys.argv) < 2:
         usage()
