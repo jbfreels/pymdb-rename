@@ -1,6 +1,5 @@
-out_path: "tests/data/output/"
-action: move                      # copy, move
-movie_format: "{n} ({y})"         # The Matrix (1999)
+action: copy                      # copy, move
+movie_format: "tests/data/output/{n} ({y})"         # The Matrix (1999)
 movie_exts:
   - ".avi"
   - ".mp4"

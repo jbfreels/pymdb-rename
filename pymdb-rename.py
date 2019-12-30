@@ -42,7 +42,7 @@ if __name__ == "__main__":
     movie.title, movie.year = imdb.fetch_movie()
 
     if movie.title != None:
-        print("{} -> {}".format(movie.filename, path.join(config.out_path, movie.get_formatted_name(True))))
+        print("{} -> {}".format(movie.filename, movie.get_formatted_name(True)))
         movie.do_output()
     else:
         print("couldn't find a match :(")

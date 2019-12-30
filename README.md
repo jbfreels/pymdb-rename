@@ -13,10 +13,9 @@ or
 `make install`
 
 ## config
-* *out_path* - where the output will go, if None, output will go to the folder where the input file resides
 * *action* - What to do with the file
-  * *copy* - copy the file to *out_path*
-  * *move* - move the file to *out_path*
+  * *copy* - copy the file
+  * *move* - move the file
   * *test* - don't do anything, just show what will happen
 * *movie_format* - represents how the output filname will be formatted, see *string format* below
 * *movie_exts* - valid filename extensions for movies

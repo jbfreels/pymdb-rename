@@ -39,10 +39,11 @@ class Movie:
         return f
 
     def do_output(self, outpath=None):
-        if not outpath:
-            output = path.join(config.out_path, self.get_formatted_name(True))
+        if outpath:
+            # called specifying an output folder (unit test)
+            output = path.join(outpath, path.basename(self.get_formatted_name(True)))
         else:
-            output = path.join(outpath, self.get_formatted_name(True))
+            output = self.get_formatted_name(True)
         try:
             self.logger.info("copying data")
             FileUtils.copyFile(self.path, output)
