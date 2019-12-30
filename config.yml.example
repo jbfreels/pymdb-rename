@@ -6,10 +6,10 @@ movie_exts:
   - ".m4v"
   - ".mkv"
 logger:
-  path: pymdb-rename.log
   file: 
     level: logging.DEBUG
     format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    path: pymdb-rename.log
   stdout:
     level: logging.ERROR
     format: "%(levelname)s: %(name)s - %(message)s"

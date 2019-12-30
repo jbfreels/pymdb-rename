@@ -7,7 +7,7 @@ def get_logger(mod):
     logger = logging.getLogger(mod)
     logger.setLevel(logging.DEBUG)
 
-    handler = logging.FileHandler(config.logger['path'])
+    handler = logging.FileHandler(config.logger['file']['path'])
     handler.setLevel(eval(config.logger['file']['level']))
     formatter = logging.Formatter(config.logger['file']['format'])
     handler.setFormatter(formatter)
