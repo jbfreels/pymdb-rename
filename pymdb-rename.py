@@ -32,7 +32,11 @@ if __name__ == "__main__":
         logger.error("input file does not exist")
         exit(1)
 
-    movie = Movie(infile)
+    try:
+        movie = Movie(infile)
+    except OSError as e:
+        logger.error("error determining media file from input")
+        exit(1)
 
     if not movie.ext in config.movie_exts:
         logger.error("looks like input isn't a media file")

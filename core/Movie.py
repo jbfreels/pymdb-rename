@@ -41,9 +41,22 @@ class Movie:
     def do_output(self, outpath=None):
         if outpath:
             # called specifying an output folder (unit test)
-            output = path.join(outpath, path.basename(self.get_formatted_name(True)))
+            output = path.join(outpath, path.basename(
+                self.get_formatted_name(True)))
         else:
             output = self.get_formatted_name(True)
+
+        if config.action.upper() == "COPY":
+            self.__copy(output)
+        elif config.action.upper() == "MOVE":
+            self.__move(output)
+        elif config.action.upper() == "TEST":
+            self.__test(output)
+        else:
+            self.logger.error("unknown action '{}'".format(config.action))
+        return None
+
+    def __copy(self, output):
         try:
             self.logger.info("copying data")
             FileUtils.copyFile(self.path, output)
@@ -52,11 +65,19 @@ class Movie:
         except FileNotFoundError as e:
             self.logger.error(e)
         else:
-            if config.action.upper() == "MOVE":
-                self.logger.info("removing input file")
-                os.remove(self.path)
             return output
         return None
+
+    def __move(self, output):
+        self.__copy(output)
+        try:
+            os.remove(self.path)
+            self.logger.info("removed input file")
+        except OSError as e:
+            self.logger.error("input file could not be removed")
+
+    def __test(self, output):
+        self.logger.info("{} -> {}".format(self.path, output))
 
     def __parse_fixed_name(self):
         m = re.match(r".*([1-3][0-9]{3})", self.name)

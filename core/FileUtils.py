@@ -7,18 +7,30 @@ import fnmatch
 
 from core.Config import config
 from core.ProgressBar import ProgressBar
+from core import get_logger
 
 pbar = ProgressBar("")
+logger = get_logger(__name__)
 
 
 def findMovieInDir(search):
     file = None
     files = []
+    min_size = 300  # in MB
 
     for f in os.listdir(search):
         name, ext = os.path.splitext(f)
         if ext in config.movie_exts:
-            files.extend([f])
+            size = os.path.getsize(os.path.join(search, f)) / 1024**2
+            logger.debug("{} is {} MB".format(f, size))
+            if size > min_size:
+                # this is a hack to see if file is the main media file
+                # or not.  TODO replace this with a string compare
+                files.extend([f])
+                logger.debug("file meets size requirement")
+            else:
+                logger.debug(
+                    "file does not meet size requirement {}".format(size))
 
     if len(files) == 1:
         return os.path.join(search, files[0])

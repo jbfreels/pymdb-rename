@@ -1,10 +1,10 @@
+import pathlib
 import unittest
 from os import path, unlink
-import pathlib
 
 from context import core as core
-from core import Movie
-from core import Imdb
+from core import Imdb, Movie
+from core.Config import config
 
 
 class TestMovie(unittest.TestCase):
@@ -40,6 +40,7 @@ class TestMovie(unittest.TestCase):
             self.assertEqual(m.year, year)
 
     def test_copy(self):
+        config.action = "copy"
         for i in self.files:
             dpath = 'tests/data'
             dopath = 'tests/data/output'
@@ -53,3 +54,19 @@ class TestMovie(unittest.TestCase):
             self.assertTrue(path.exists(ofn))
             unlink(ofn)
             unlink(dfn)
+
+    def test_move(self):
+        config.action = "move"
+        for i in self.files:
+            dpath = 'tests/data'
+            dopath = 'tests/data/output'
+            fn = self.files[i]['file']
+            dfn = path.join(dpath, path.basename(fn))
+            pathlib.Path(dfn).touch(exist_ok=True)
+            m = Movie.Movie(dfn)
+            m.title, m.year = Imdb.Imdb(m.name).fetch_movie()
+            ofn = path.join(dopath, path.basename(m.get_formatted_name(True)))
+            outFile = m.do_output(dopath)
+            self.assertFalse(path.exists(dfn))
+            self.assertTrue(path.exists(ofn))
+            unlink(ofn)
