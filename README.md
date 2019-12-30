@@ -1,5 +1,9 @@
 # pymdb-rename
-This project is in current initial development, not currently in a working full-functioning state.
+This project is in current initial development, not currently in a working full-functioning state, but getting closer by the day.
+
+I started this project because I recently migrated from Arch Linux as my main OS to macOS X.  Linux conveniently allows you access to FileBot 4.7 which has a nag-screen, but no monetary requirement to use.  While FileBot does a TON of stuff, I only utilized the AMC script to rename media files I burned from copies of my DVD/Blu-Ray or downloads.  IMO, $40 because I'm too lazy to rename my own files is a little much.  
+
+There are a few other projects out there that utilize similar functionatliy, but I just wanted something super basic.  Give it an input, rename to output.  That's it.  
 
 ## requirements
 * imdbpy

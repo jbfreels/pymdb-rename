@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
+import glob
 import os
 import shutil
 import sys
+import fnmatch
 
 from core.Config import config
 from core.ProgressBar import ProgressBar
-from glob import glob
 
 pbar = ProgressBar("")
 
@@ -13,11 +14,14 @@ pbar = ProgressBar("")
 def findMovieInDir(search):
     file = None
     files = []
-    for ext in config.movie_exts:
-        files.extend(glob(os.path.join(search, "*" + ext)))
+
+    for f in os.listdir(search):
+        name, ext = os.path.splitext(f)
+        if ext in config.movie_exts:
+            files.extend([f])
 
     if len(files) == 1:
-        return files[0]
+        return os.path.join(search, files[0])
 
     return file
 
