@@ -13,15 +13,15 @@ pbar = ProgressBar("")
 logger = get_logger(__name__)
 
 
-def findMovieInDir(search):
+def findMovieInDir(folder):
     file = None
     files = []
     min_size = 300  # in MB
 
-    for f in os.listdir(search):
+    for f in os.listdir(folder):
         name, ext = os.path.splitext(f)
         if ext in config.movie_exts:
-            size = os.path.getsize(os.path.join(search, f)) / 1024**2
+            size = os.path.getsize(os.path.join(folder, f)) / 1024**2
             logger.debug("{} is {} MB".format(f, size))
             if size > min_size:
                 # this is a hack to see if file is the main media file
@@ -33,9 +33,39 @@ def findMovieInDir(search):
                     "file does not meet size requirement {}".format(size))
 
     if len(files) == 1:
-        return os.path.join(search, files[0])
+        return os.path.join(folder, files[0])
 
     return file
+
+
+def cleanFolder(folder):
+    if config.clean['enabled'] == True:
+        for f in os.listdir(folder):
+            path = os.path.join(folder, f)
+            if os.path.isdir(path):
+                continue
+
+            n, ext = os.path.splitext(f)
+
+            if not ext:
+                continue
+
+            if ext in config.clean['exts']:
+                if config.action != "test":
+                    os.remove(path)
+                logger.debug('{} removed'.format(f))
+                continue
+
+            size = os.path.getsize(os.path.join(folder, f)) / 1024**2
+            if size > config.clean['max_size']:
+                logger.debug('{} ignoring, exceeds max_size')
+                continue
+
+            if size < config.clean['min_size']:
+                if config.action != "test":
+                    os.remove(path)
+                logger.debug('{} removed, under min_size')
+                continue
 
 
 def copyFile(src, dst, follow_sym=True):

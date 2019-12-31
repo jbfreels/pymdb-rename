@@ -17,6 +17,7 @@ class Movie:
         self.year = None
 
         if path.isdir(inpath):
+            FileUtils.cleanFolder(inpath)
             inpath = FileUtils.findMovieInDir(inpath)
 
             if not inpath:
@@ -58,7 +59,8 @@ class Movie:
 
     def __copy(self, output):
         try:
-            self.logger.info("copying data")
+            self.logger.info("starting data copy")
+            self.logger.info("{} -> {}".format(self.path, output))
             FileUtils.copyFile(self.path, output)
         except FileExistsError as e:
             self.logger.error(e)
@@ -71,8 +73,9 @@ class Movie:
     def __move(self, output):
         self.__copy(output)
         try:
+            self.logger.info("removing input file")
             os.remove(self.path)
-            self.logger.info("removed input file")
+            self.logger.info("removed '{}'".format(self.path))
         except OSError as e:
             self.logger.error("input file could not be removed")
 

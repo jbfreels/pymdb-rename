@@ -8,6 +8,8 @@ from core.Config import config
 
 
 class TestMovie(unittest.TestCase):
+    data_path = 'tests/data'
+    data_out_path = 'tests/data/output'
     files = {
         "0": {
             "title": "The Goonies 1985",
@@ -42,15 +44,14 @@ class TestMovie(unittest.TestCase):
     def test_copy(self):
         config.action = "copy"
         for i in self.files:
-            dpath = 'tests/data'
-            dopath = 'tests/data/output'
             fn = self.files[i]['file']
-            dfn = path.join(dpath, path.basename(fn))
-            pathlib.Path(dfn).touch(exist_ok=True)
-            m = Movie.Movie(dfn)
-            m.title, m.year = Imdb.Imdb(m.name).fetch_movie()
-            ofn = path.join(dopath, path.basename(m.get_formatted_name(True)))
-            outFile = m.do_output(dopath)
+            dfn = path.join(self.data_path, path.basename(fn))
+
+            m = self.__create_movie(dfn)
+
+            ofn = path.join(self.data_out_path, path.basename(
+                m.get_formatted_name(True)))
+            m.do_output(self.data_out_path)
             self.assertTrue(path.exists(ofn))
             unlink(ofn)
             unlink(dfn)
@@ -58,15 +59,35 @@ class TestMovie(unittest.TestCase):
     def test_move(self):
         config.action = "move"
         for i in self.files:
-            dpath = 'tests/data'
-            dopath = 'tests/data/output'
             fn = self.files[i]['file']
-            dfn = path.join(dpath, path.basename(fn))
-            pathlib.Path(dfn).touch(exist_ok=True)
-            m = Movie.Movie(dfn)
-            m.title, m.year = Imdb.Imdb(m.name).fetch_movie()
-            ofn = path.join(dopath, path.basename(m.get_formatted_name(True)))
-            outFile = m.do_output(dopath)
+            dfn = path.join(self.data_path, path.basename(fn))
+
+            m = self.__create_movie(dfn)
+
+            ofn = path.join(self.data_out_path, path.basename(
+                m.get_formatted_name(True)))
+            m.do_output(self.data_out_path)
             self.assertFalse(path.exists(dfn))
             self.assertTrue(path.exists(ofn))
             unlink(ofn)
+
+    def test_test(self):
+        config.action = "test"
+        for i in self.files:
+            fn = self.files[i]['file']
+            dfn = path.join(self.data_path, path.basename(fn))
+
+            m = self.__create_movie(dfn)
+
+            ofn = path.join(self.data_out_path, path.basename(
+                m.get_formatted_name(True)))
+            m.do_output(self.data_out_path)
+            self.assertFalse(path.exists(ofn))
+            self.assertTrue(path.exists(dfn))
+            unlink(dfn)
+
+    def __create_movie(self, fn):
+        pathlib.Path(fn).touch(exist_ok=True)
+        m = Movie.Movie(fn)
+        m.title, m.year = Imdb.Imdb(m.name).fetch_movie()
+        return m
