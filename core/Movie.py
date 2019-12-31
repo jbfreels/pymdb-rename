@@ -15,8 +15,10 @@ class Movie:
     def __init__(self, inpath):
         self.title = None
         self.year = None
+        self.in_is_dir = False
 
         if path.isdir(inpath):
+            self.in_is_dir = True
             FileUtils.cleanFolder(inpath)
             inpath = FileUtils.findMovieInDir(inpath)
 
@@ -76,6 +78,10 @@ class Movie:
             self.logger.info("removing input file")
             os.remove(self.path)
             self.logger.info("removed '{}'".format(self.path))
+            if self.in_is_dir:
+                if FileUtils.isFolderEmpty(self.dirname):
+                    os.rmdir(self.dirname)
+                    self.logger.info("removed empty input folder")
         except OSError as e:
             self.logger.error("input file could not be removed")
 

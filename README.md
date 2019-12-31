@@ -48,4 +48,4 @@ You can set your movie string format in *config.yml*.
 # tests
 To run the unit tests...
 
-`make tests` 
+`make test` 

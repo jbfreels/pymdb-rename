@@ -21,21 +21,19 @@ def findMovieInDir(folder):
     for f in os.listdir(folder):
         name, ext = os.path.splitext(f)
         if ext in config.movie_exts:
-            size = os.path.getsize(os.path.join(folder, f)) / 1024**2
-            logger.debug("{} is {} MB".format(f, size))
-            if size > min_size:
-                # this is a hack to see if file is the main media file
-                # or not.  TODO replace this with a string compare
-                files.extend([f])
-                logger.debug("file meets size requirement")
-            else:
-                logger.debug(
-                    "file does not meet size requirement {}".format(size))
+            files.extend([f])
 
     if len(files) == 1:
         return os.path.join(folder, files[0])
 
     return file
+
+
+def isFolderEmpty(folder):
+    if not os.listdir(folder):
+        return True
+    else:
+        return False
 
 
 def cleanFolder(folder):
@@ -47,9 +45,6 @@ def cleanFolder(folder):
 
             n, ext = os.path.splitext(f)
 
-            if not ext:
-                continue
-
             if ext in config.clean['exts']:
                 if config.action != "test":
                     os.remove(path)
@@ -58,7 +53,7 @@ def cleanFolder(folder):
 
             size = os.path.getsize(os.path.join(folder, f)) / 1024**2
             if size > config.clean['max_size']:
-                logger.debug('{} ignoring, exceeds max_size')
+                logger.debug('{} ignoring, exceeds max_size'.format(f))
                 continue
 
             if size < config.clean['min_size']:
@@ -100,3 +95,10 @@ def _copy_file_obj(fsrc, fdst, callback, total, length=16*1024):
 
 def _copy_progress(p, t):
     pbar.calcUpdate(p, t)
+
+
+def _create_dummy_file(fn, size):
+    f = open(fn, "wb")
+    f.seek((size*1024*1024)-1)
+    f.write(b"\0")
+    f.close()

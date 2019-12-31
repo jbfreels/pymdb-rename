@@ -1,15 +1,83 @@
-action: copy                      # copy, move
-movie_format: "tests/data/output/{n} ({y})"         # The Matrix (1999)
+# action
+#   copy - copy the output media 
+#   move - move the output media
+#   test - show what will happen, but do not do anything
+action: copy
+
+# movie_format
+#   this path can include your output folder
+#   {n} - movie name
+#   {y} - movie year 
+movie_format: "tests/data/output/{n} ({y})"
+
+# remove_empty_input
+#   if the input folder is empty after 'move'
+#   action, delete the input folder
+#   true - remove the empty input folder
+#   false - do not remove the empty input folder
+remove_empty_input: true
+
+# clean
+#   options for 'cleaning' the input folder. 
+#   when enabled, the input folder will be scrubbed
+#   of all files that meet the requirements outlined
+#   below.
+clean: 
+  # enabled
+  #   turn the 'clean' feature on/off
+  #   true - 'clean' the input folder
+  #   false - feature is disabled
+  enabled: true
+  # min_size
+  #   remove ALL files less than the specified size
+  #   in MegaBytes
+  min_size: 20
+  # max_size
+  #   ALWAYS keep files larger than the specified
+  #   size in MegaBytes
+  max_size: 100
+  # exts
+  #   List of extensions to ALWAYS delete, over-rides 
+  #   'min_size' and 'max_size'.  These files will
+  #   always be removed!
+  exts:
+    - ".jpg"
+    - ".png"
+    - ".gif"
+    - ".nfo"
+    - ".txt"
+    - ".exe"
+
+# movie_exts
+#   filename extensions for media files
 movie_exts:
   - ".avi"
   - ".mp4"
   - ".m4v"
   - ".mkv"
+
+# logger
+#   options for setting up the log file and console output
 logger:
+  # file
+  #   logfile options
   file: 
+    # level
+    #   log importance level to display
+    #       DEBUG < INFO < ERROR
+    #   DEBUG - show all messages, try this if you're unsure
+    #           what is going on
+    #   INFO  - show most messages
+    #   ERROR - only show errors
     level: logging.DEBUG
+    # format
+    #   enrich the log message see (https://docs.python.org/3/library/logging.html#logrecord-attributes)
     format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    # path
+    #   where the logfile will be created
     path: pymdb-rename.log
+  # stdout
+  #   console output options
   stdout:
     level: logging.ERROR
     format: "%(levelname)s: %(name)s - %(message)s"
