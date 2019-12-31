@@ -6,7 +6,8 @@ I started this project because I recently migrated from Arch Linux as my main OS
 There are a few other projects out there that utilize similar functionatliy, but I just wanted something super basic.  Give it an input, rename to output.  That's it.  
 
 ## requirements
-* imdbpy
+* imdbpy - should be evident 
+* pathlib - for *touch* function, utilized in unit tests to generate dummy files for testing
 
 For convenience a *requirements.txt* has been added to ease import
 
