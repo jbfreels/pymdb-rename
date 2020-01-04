@@ -23,7 +23,7 @@ There's an included 'config.yml.example', rename to 'config.yml' to get started.
   * *copy* - copy the file
   * *move* - move the file
   * *test* - don't do anything, just show what will happen
-* *clean* - clean up clutter
+* *clean* - clean up clutter, only triggered when action *move* is utilized
   * *enabled* - true/false will clean folder when folder is passed as input
   * *min_size* - nuke everything under the specified size in MegaBytes
   * *max_size* - 

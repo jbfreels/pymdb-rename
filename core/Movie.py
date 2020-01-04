@@ -73,11 +73,9 @@ class Movie:
         return None
 
     def __move(self, output):
-        self.__copy(output)
         try:
+            os.rename(self.path, output)
             self.logger.info("removing input file")
-            os.remove(self.path)
-            self.logger.info("removed '{}'".format(self.path))
             if self.in_is_dir:
                 if FileUtils.isFolderEmpty(self.dirname):
                     os.rmdir(self.dirname)
