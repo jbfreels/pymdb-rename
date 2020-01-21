@@ -56,6 +56,26 @@ movie_exts:
   - ".m4v"
   - ".mkv"
 
+# warnings
+#   enable specific warnings, output level WARNING
+#   required to see warning messages
+warnings:
+  # invalid_url
+  #   show warning when output filename contains 
+  #   characters that shouldn't be in a URL
+  invalid_url: true
+  invalid_url_chars:
+    - ";"
+    - "/"
+    - "?"
+    - ":"
+    - "@"
+    - "&"
+    - "="
+    - "+"
+    - "$"
+    - ","
+
 # logger
 #   options for setting up the log file and console output
 logger:
@@ -79,5 +99,5 @@ logger:
   # stdout
   #   console output options
   stdout:
-    level: logging.ERROR
+    level: logging.WARNING
     format: "%(levelname)s: %(name)s - %(message)s"

@@ -80,7 +80,7 @@ class Movie:
                 if FileUtils.isFolderEmpty(self.dirname):
                     os.rmdir(self.dirname)
                     self.logger.info("removed empty input folder")
-        except OSError as e:
+        except OSError:
             self.logger.error("input file could not be removed")
 
     def __test(self, output):

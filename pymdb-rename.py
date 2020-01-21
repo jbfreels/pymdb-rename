@@ -48,6 +48,8 @@ if __name__ == "__main__":
     if movie.title != None:
         print("{} -> {}".format(movie.filename, movie.get_formatted_name(True)))
         movie.do_output()
+        if FileUtils.containsChars(movie.title, config.warnings['invalid_url_chars']):
+            logger.warning("output filename contains invalid URL characters!")
     else:
         print("couldn't find a match :(")
         exit(1)

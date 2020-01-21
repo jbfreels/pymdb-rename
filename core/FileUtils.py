@@ -16,7 +16,6 @@ logger = get_logger(__name__)
 def findMovieInDir(folder):
     file = None
     files = []
-    min_size = 300  # in MB
 
     for f in os.listdir(folder):
         name, ext = os.path.splitext(f)
@@ -80,6 +79,10 @@ def copyFile(src, dst, follow_sym=True):
             with open(dst, 'wb') as fdst:
                 _copy_file_obj(fsrc, fdst, callback=_copy_progress, total=size)
     return dst
+
+
+def containsChars(s, chars):
+    return [e for e in chars if(e in s)]
 
 
 def _copy_file_obj(fsrc, fdst, callback, total, length=16*1024):
