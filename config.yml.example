@@ -75,6 +75,14 @@ warnings:
     - "+"
     - "$"
     - ","
+    - "{"
+    - "}"
+    - "|"
+    - "\\"
+    - "^"
+    - "["
+    - "]"
+    - "`"
 
 # logger
 #   options for setting up the log file and console output
