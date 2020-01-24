@@ -47,7 +47,10 @@ if __name__ == "__main__":
     movie.title, movie.year = imdb.fetch_movie()
 
     if movie.title != None:
-        print("{} -> {}".format(movie.filename, movie.get_formatted_name(True)))
+        strout = "{} -> {}".format(movie.filename, movie.get_formatted_name(True))
+        if config.action.upper() == "TEST":
+            strout = "[TEST] " + strout
+        print(strout)
         movie.do_output()
         if FileUtils.containsChars(movie.title, config.warnings['invalid_url_chars']):
             logger.warning("output filename contains invalid URL characters!")
