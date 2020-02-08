@@ -1,10 +1,19 @@
-import yaml
 import json
+import os
+
+import yaml
 
 
 class Config:
 
     def __init__(self, path="config.yml"):
+
+        try:
+            if not os.path.exists(path):
+                raise IOError
+        except IOError as e:
+            print("error locating config YML")
+            exit(1)
 
         with open(path, 'r') as yml:
             self.yaml = yaml.load(yml, Loader=yaml.Loader)

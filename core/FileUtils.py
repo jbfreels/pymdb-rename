@@ -40,6 +40,8 @@ def cleanFolder(folder):
         for f in os.listdir(folder):
             path = os.path.join(folder, f)
             if os.path.isdir(path):
+                if not os.listdir(path):
+                    shutil.rmtree(path)
                 continue
 
             n, ext = os.path.splitext(f)
@@ -101,6 +103,7 @@ def _copy_progress(p, t):
 
 
 def _create_dummy_file(fn, size):
+    # size in MB
     f = open(fn, "wb")
     f.seek((size*1024*1024)-1)
     f.write(b"\0")

@@ -18,26 +18,9 @@ or
 `make install`
 
 ## config
-There's an included 'config.yml.example', rename to 'config.yml' to get started. 
-* *action* - What to do with the file
-  * *copy* - copy the file
-  * *move* - move the file
-  * *test* - don't do anything, just show what will happen
-* *clean* - clean up clutter, only triggered when action *move* is utilized
-  * *enabled* - true/false will clean folder when folder is passed as input
-  * *min_size* - nuke everything under the specified size in MegaBytes
-  * *max_size* - 
-  * *exts* - list of filetypes to always delete
-* *movie_format* - represents how the output filname will be formatted, see *string format* below
-* *movie_exts* - list of valid filename extensions for movies
-* *logger*
-  * *path* - output path for the logfile
-  * *file* - options for file output
-    * *level* - log level for the output log file
-    * *format* - represents how the output will be formatted for the file, see (https://docs.python.org/3/library/logging.html#logrecord-attributes)
-  * *stdout* - options for STDOUT output
-    * *level* - log level for STDOUT
-    * *format* - represents how the output will be formatted for STDOUT, see (https://docs.python.org/3/library/logging.html#logrecord-attributes)
+There's an included 'config.yml.example', rename to 'config.yml' to get started. The example config file contains documentation.
+
+The config file is placed with the python script.
 
 ## string format
 You can set your movie string format in *config.yml*.  
