@@ -43,19 +43,28 @@ if __name__ == "__main__":
         logger.error("looks like input isn't a media file")
         exit(1)
 
-    imdb = Imdb(movie.name)
-    movie.title, movie.year = imdb.fetch_movie()
+    try:
+        imdb = Imdb(movie.name)
+        movie.title, movie.year = imdb.fetch_movie()
+    except:
+        logger.error("movie.name: '{}' could not be found." \
+            .format(movie.name))
+        sys.exit(1)
 
     if movie.title != None:
         strout = "{} -> {}".format(movie.filename, movie.get_formatted_name(True))
         if config.action.upper() == "TEST":
             strout = "[TEST] " + strout
         print(strout)
-        movie.do_output()
+        try:
+            movie.do_output()
+        except IOError as e:
+            logger.error(str(e))
+
         if FileUtils.containsChars(movie.title, config.warnings['invalid_url_chars']):
             logger.warning("output filename contains invalid URL characters!")
     else:
-        print("couldn't find a match :(")
+        print("couldn't find a match")
         exit(1)
 
     exit(0)

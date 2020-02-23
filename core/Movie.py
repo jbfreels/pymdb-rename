@@ -49,6 +49,9 @@ class Movie:
         else:
             output = self.get_formatted_name(True)
 
+        if path.exists(output):
+            raise IOError("File exists: {}".format(output))
+
         if config.action.upper() == "COPY":
             self.__copy(output)
         elif config.action.upper() == "MOVE":
@@ -99,7 +102,9 @@ class Movie:
                      '\\', '/', '"', ':', '.',
                      '[', ']', '_', '-', '(', ')',
                      "1080p", "1080", "720p", "720",
-                     "  "]
+                     "4k", "4K", "2160p", "BluRay", 
+                     "WEBRip", "x264", "AAC5.1", 
+                     "YTS.MX", "  "]
 
         for c in rep_chars:
             name = name.replace(c, " ")
