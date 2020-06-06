@@ -1,2 +1,4 @@
 imdbpy
 pathlib
+pyyaml
+strsim
