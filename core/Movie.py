@@ -1,12 +1,8 @@
-import os
 import re
-from os import path
+from os import path, rename, rmdir
 
-import core.Imdb as imdb
-from core import FileUtils
+from core import FileUtils, get_logger
 from core.Config import config
-
-from core import get_logger
 
 
 class Movie:
@@ -23,8 +19,7 @@ class Movie:
             inpath = FileUtils.findMovieInDir(inpath)
 
             if not inpath:
-                raise FileNotFoundError(
-                    "could not determine input from folder")
+                raise FileNotFoundError("could not determine input from folder")
 
         self.path = inpath
         self.dirname = path.dirname(inpath)
@@ -44,8 +39,7 @@ class Movie:
     def do_output(self, outpath=None):
         if outpath:
             # called specifying an output folder (unit test)
-            output = path.join(outpath, path.basename(
-                self.get_formatted_name(True)))
+            output = path.join(outpath, path.basename(self.get_formatted_name(True)))
         else:
             output = self.get_formatted_name(True)
 
@@ -77,11 +71,11 @@ class Movie:
 
     def __move(self, output):
         try:
-            os.rename(self.path, output)
+            rename(self.path, output)
             self.logger.info("removing input file")
             if self.in_is_dir:
                 if FileUtils.isFolderEmpty(self.dirname):
-                    os.rmdir(self.dirname)
+                    rmdir(self.dirname)
                     self.logger.info("removed empty input folder")
         except OSError:
             self.logger.error("input file could not be removed")
@@ -98,13 +92,37 @@ class Movie:
             self.year = None
 
     def __fix_name(self, name):
-        rep_chars = ['<', '>', '*', '?', '|',
-                     '\\', '/', '"', ':', '.',
-                     '[', ']', '_', '-', '(', ')',
-                     "1080p", "1080", "720p", "720",
-                     "4k", "4K", "2160p", "BluRay", 
-                     "WEBRip", "x264", "AAC5.1", 
-                     "YTS.MX", "  "]
+        rep_chars = [
+            "<",
+            ">",
+            "*",
+            "?",
+            "|",
+            "\\",
+            "/",
+            '"',
+            ":",
+            ".",
+            "[",
+            "]",
+            "_",
+            "-",
+            "(",
+            ")",
+            "1080p",
+            "1080",
+            "720p",
+            "720",
+            "4k",
+            "4K",
+            "2160p",
+            "BluRay",
+            "WEBRip",
+            "x264",
+            "AAC5.1",
+            "YTS.MX",
+            "  ",
+        ]
 
         for c in rep_chars:
             name = name.replace(c, " ")

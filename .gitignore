@@ -1,8 +1,12 @@
 config.yml
 .vscode
 .DS_Store
-
+/movie-rename.workflow
 tests/data/
+.trunk
+.isort.cfg
+.flake8
+.markdownlint.yaml
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
