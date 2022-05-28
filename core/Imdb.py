@@ -1,7 +1,7 @@
+import logging
+
 from imdb import IMDb
 from similarity.damerau import Damerau
-
-import logging
 
 
 class Imdb:
@@ -20,13 +20,13 @@ class Imdb:
         res = self.IMDb.search_movie(self.name)
         self.matches = []
         for r in res:
-            if (r['kind'] == 'movie'):
-                n = r['title']
+            if r["kind"] == "movie":
+                n = r["title"]
                 try:
-                    y = r['year']
-                except:
+                    y = r["year"]
+                except Exception:
                     y = "0000"
-                self.matches.append("{} {}".format(n, y))
+                self.matches.append(f"{n} {y}")
 
     def __best_match(self):
         if len(self.matches) == 0:
@@ -35,11 +35,11 @@ class Imdb:
         dl = Damerau()
         ops = []
         for m in self.matches:
-            if (self.name.upper() == m.upper()):
-                return m.rsplit(' ', 1)
+            if self.name.upper() == m.upper():
+                return m.rsplit(" ", 1)
             else:
                 ops.append(dl.distance(self.name.upper(), m.upper()))
         i = int(ops.index(min(ops)))
 
         if self.matches[i] != "":
-            return self.matches[i].rsplit(' ', 1)
+            return self.matches[i].rsplit(" ", 1)

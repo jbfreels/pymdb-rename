@@ -1,7 +1,8 @@
 import sys
 
+
 class ProgressBar(object):
-    def __init__(self, msg, width=20, pSym=u'▣ ', eSym=u'□ '):
+    def __init__(self, msg, width=20, pSym="▣ ", eSym="□ "):
         self.width = width
 
         if self.width < 0:
@@ -19,11 +20,11 @@ class ProgressBar(object):
         pBar = self.pSym * fill + self.eSym * empty
 
         if not self.msg:
-            self.msg = u''
+            self.msg = ""
 
         if p >= 99:
             p = 100
-        pMsg = u'\r{0}{1}{2:02d}%'.format(self.msg, pBar, p)
+        pMsg = "\r{0}{1}{2:02d}%".format(self.msg, pBar, p)
 
         sys.stdout.write(pMsg)
         sys.stdout.flush()
