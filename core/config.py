@@ -6,9 +6,13 @@ import yaml
 
 class Config:
 
-    def __init__(self, path="config.yml"):
+    def __init__(self):
 
         try:
+            path = os.path.join(
+                os.path.dirname(__file__),
+                "../config.yml"
+            )
             if not os.path.exists(path):
                 raise IOError
         except IOError as e:
