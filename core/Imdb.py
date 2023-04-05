@@ -25,7 +25,8 @@ class Imdb:
                 try:
                     y = r["year"]
                 except Exception:
-                    y = "0000"
+                    nm = self.IMDb.get_movie(r.movieID)
+                    y = nm['year']
                 self.matches.append(f"{n} {y}")
 
     def __best_match(self):
