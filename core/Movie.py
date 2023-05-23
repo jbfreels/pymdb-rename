@@ -119,6 +119,7 @@ class Movie:
             "BluRay",
             "WEBRip",
             "x264",
+            "5.1",
             "AAC5.1",
             "YTS.MX",
             "  ",
